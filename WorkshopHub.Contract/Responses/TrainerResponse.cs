@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WorkshopHub.Contract.Responses
+﻿namespace WorkshopHub.Contract.Responses
 {
-    class TrainerResponse
+    public class TrainerResponse
     {
+        public int TrainerId { get; set; }
+
+        public string Name { get; set; }
+
+        public string Email { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        public string? Bio { get; set; }
+
+        public int WorkshopCount { get; set; }
     }
 }
+

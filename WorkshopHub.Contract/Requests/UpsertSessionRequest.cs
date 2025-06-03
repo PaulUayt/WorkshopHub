@@ -4,7 +4,7 @@ namespace WorkshopHub.Contract.Requests
 {
     public class UpsertSessionRequest
     {
-        public int SessionId { get; set; }
+        public int? SessionId { get; set; }
 
         [Required]
         public int WorkshopId { get; set; }

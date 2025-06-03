@@ -5,11 +5,9 @@ namespace WorkshopHub.Contract.Requests
 {
     public class UpsertCategoryRequest
     {
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; } // null → створення, значення → оновлення
 
-        [Required]
-        [StringLength(50)]
         public string Name { get; set; }
-
     }
 }
+
