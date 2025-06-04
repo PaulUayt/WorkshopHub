@@ -4,9 +4,9 @@
     {
         public int SessionId { get; set; }
 
-        public DateTime StartTime { get; set; }
-
         public int WorkshopId { get; set; }
+
+        public DateTime StartTime { get; set; }
 
         public string WorkshopTitle { get; set; }
     }

@@ -1,16 +1,12 @@
 ﻿namespace WorkshopHub.Service
 {
-    class IRequestHandler
+    public interface IRequestHandler<in TRequest, TResponse>
     {
-        public interface IRequestHadler<in TRequest, TResponse>
-        {
-            Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken = default);
-        }
+        Task<TResponse> Handle(TRequest command, CancellationToken cancellationToken = default);
+    }
 
-        public interface IRequestHadler<TResponse>
-        {
-            Task<TResponse> Handle(CancellationToken cancellationToken = default);
-        }
-
+    public interface IRequestHandler<TResponse>
+    {
+        Task<TResponse> Handle(CancellationToken cancellationToken = default);
     }
 }
