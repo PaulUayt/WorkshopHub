@@ -31,7 +31,17 @@ namespace WorkshopHub.Service.Commands.UpsertHandlers
                 SessionId = session.SessionId,
                 WorkshopId = session.WorkshopId,
                 StartTime = session.StartTime,
-                WorkshopTitle = await GetWorkshopTitleAsync(session.WorkshopId, cancellationToken)
+                WorkshopTitle = await GetWorkshopTitleAsync(session.WorkshopId, cancellationToken),
+                WorkshopResponse = session.Workshop != null ? new WorkshopResponse
+                {
+                    WorkshopId = session.Workshop.WorkshopId,
+                    Title = session.Workshop.Title,
+                    Duration = session.Workshop.Duration,
+                    Description = session.Workshop.Description,
+                    CategoryName = await GetCategoryNameAsync(session.Workshop.Category.CategoryId, cancellationToken),
+                    TrainerName = await GetTrainerNameAsync(session.Workshop.Trainer.TrainerId, cancellationToken),
+                    SessionCount = await GetSessionCountAsync(session.Workshop.WorkshopId, cancellationToken),
+                } : null    
             };
         }
 
@@ -49,4 +59,27 @@ namespace WorkshopHub.Service.Commands.UpsertHandlers
                 .SingleOrDefaultAsync(cancellationToken);
             return workshop ?? string.Empty;
         }
+
+        private async Task<string> GetCategoryNameAsync(int categoryId, CancellationToken cancellationToken = default)
+        {
+            var category = await _context.Categories
+                .Where(c => c.CategoryId == categoryId)
+                .Select(c => c.Name)
+                .SingleOrDefaultAsync(cancellationToken);
+            return category ?? string.Empty;
+        }
+
+        private async Task<string> GetTrainerNameAsync(int trainerId, CancellationToken cancellationToken = default)
+        {
+            var trainer = await _context.Trainers
+                .Where(t => t.TrainerId == trainerId)
+                .Select(t => t.Name)
+                .SingleOrDefaultAsync(cancellationToken);
+            return trainer ?? string.Empty;
+        }
+
+        private async Task<int> GetSessionCountAsync(int workshopId, CancellationToken cancellationToken = default) =>
+            await _context.Sessions
+            .CountAsync(s => s.WorkshopId == workshopId, cancellationToken);
+    }
 }

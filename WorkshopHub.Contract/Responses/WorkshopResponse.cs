@@ -9,6 +9,10 @@
         public string CategoryName { get; set; }
         public string TrainerName { get; set; }
         public int SessionCount { get; set; }
+
+        public CategoryResponse CategoryResponse { get; set; }
+
+        public TrainerResponse TrainerResponse { get; set; }
     }
 
 }

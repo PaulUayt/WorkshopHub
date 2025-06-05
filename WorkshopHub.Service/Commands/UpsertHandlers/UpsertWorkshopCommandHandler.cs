@@ -37,7 +37,20 @@ namespace WorkshopHub.Service.Commands.UpsertHandlers
                 Duration = command.Duration,
                 CategoryName = await GetCategoryNameAsync(command.CategoryId, cancellationToken),
                 TrainerName = await GetTrainerNameAsync(command.TrainerId, cancellationToken),
-                SessionCount = await GetSessionCountAsync(command.WorkshopId, cancellationToken)
+                SessionCount = await GetSessionCountAsync(command.WorkshopId, cancellationToken),
+                CategoryResponse = workshop.Category != null ? new CategoryResponse
+                {
+                    CategoryId = workshop.Category.CategoryId,
+                    Name = workshop.Category.Name
+                } : null,
+                TrainerResponse = workshop.Trainer != null ? new TrainerResponse
+                {
+                    TrainerId = workshop.Trainer.TrainerId,
+                    Name = workshop.Trainer.Name,
+                    Email = workshop.Trainer.Email,
+                    PhoneNumber = workshop.Trainer.PhoneNumber,
+                    Bio = workshop.Trainer.Bio
+                } : null  
             };
         }
 

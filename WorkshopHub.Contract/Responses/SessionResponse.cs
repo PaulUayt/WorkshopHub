@@ -9,5 +9,7 @@
         public DateTime StartTime { get; set; }
 
         public string WorkshopTitle { get; set; }
+
+        public WorkshopResponse WorkshopResponse { get; set; }
     }
 }

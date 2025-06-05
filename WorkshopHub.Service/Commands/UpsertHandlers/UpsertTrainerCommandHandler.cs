@@ -29,6 +29,8 @@ namespace WorkshopHub.Service.Commands.UpsertHandlers
             {
                 TrainerId = trainer.TrainerId,
                 Name = trainer.Name,
+                Email = trainer.Email,
+                PhoneNumber = trainer.PhoneNumber,
                 Bio = trainer.Bio,
                 WorkshopCount = await GetWorkshopCount(trainer.TrainerId, cancellationToken)
             };
