@@ -38,18 +38,22 @@ namespace WorkshopHub.Service.Commands.UpsertHandlers
                     Title = session.Workshop.Title,
                     Duration = session.Workshop.Duration,
                     Description = session.Workshop.Description,
-                    CategoryName = await GetCategoryNameAsync(session.Workshop.Category.CategoryId, cancellationToken),
-                    TrainerName = await GetTrainerNameAsync(session.Workshop.Trainer.TrainerId, cancellationToken),
+                    CategoryName = session.Workshop.Category != null ? await GetCategoryNameAsync(session.Workshop.Category.CategoryId, cancellationToken) : string.Empty,
+                    TrainerName = session.Workshop.Trainer != null ? await GetTrainerNameAsync(session.Workshop.Trainer.TrainerId, cancellationToken) : string.Empty,
                     SessionCount = await GetSessionCountAsync(session.Workshop.WorkshopId, cancellationToken),
-                } : null    
+                } : null
             };
         }
 
 
-        private async Task<Session> GetSessionAsync(int sessionId, CancellationToken cancellationToken = default) =>
+        private async Task<Session> GetSessionAsync(int sessionId, CancellationToken cancellationToken = default) => 
             await _context.Sessions
-            .Include(s => s.Workshop)
-            .SingleOrDefaultAsync(s => s.SessionId == sessionId, cancellationToken);
+                .Include(s => s.Workshop)
+                    .ThenInclude(w => w.Category)
+                .Include(s => s.Workshop)
+                    .ThenInclude(w => w.Trainer)
+                .SingleOrDefaultAsync(s => s.SessionId == sessionId, cancellationToken);
+
 
         private async Task<string> GetWorkshopTitleAsync(int workshopId, CancellationToken cancellationToken = default)
         {

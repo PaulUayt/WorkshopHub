@@ -14,6 +14,8 @@
         <input type="hidden" asp-for="SessionId" />
     }
 
+    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" /> <!-- Додано -->
+
     <div class="mb-3">
         <label asp-for="StartTime" class="form-label"></label>
         <input asp-for="StartTime" class="form-control" type="datetime-local" />
@@ -32,6 +34,7 @@
     <button type="submit" class="btn btn-primary">Save</button>
     <a asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
 </form>
+
 
 @section Scripts {
     @{

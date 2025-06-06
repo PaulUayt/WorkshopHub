@@ -33,7 +33,26 @@ namespace WorkshopHub.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var workshops = await _getWorkshopsHandler.Handle();
+            var workshops = await _context.Workshops
+                .Include(w => w.Sessions)
+                .Select(w => new WorkshopWithSessionsResponse
+                {
+                    WorkshopId = w.WorkshopId,
+                    Title = w.Title,
+                    Description = w.Description,
+                    Duration = w.Duration,
+                    CategoryName = w.Category.Name,
+                    TrainerName = w.Trainer.Name,
+                    Sessions = w.Sessions
+                        .Select(s => new SessionResponse
+                        {
+                            SessionId = s.SessionId,
+                            StartTime = s.StartTime,
+                            WorkshopId = s.WorkshopId
+                        }).ToList()
+                })
+                .ToListAsync();
+
             return View(workshops);
         }
 

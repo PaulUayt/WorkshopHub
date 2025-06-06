@@ -31,14 +31,16 @@ namespace WorkshopHub.Web.Controllers
             _context = context;
         }
 
-
         public async Task<IActionResult> Index()
         {
             var sessions = await _getSessionsHandler.Handle();
             return View(sessions);
         }
-        public async Task<IActionResult> Upsert(int? id)
+
+        public async Task<IActionResult> Upsert(int? id, string returnUrl = null)
         {
+            ViewBag.ReturnUrl = returnUrl ?? Url.Action("Index", "Workshops");
+
             var workshops = await _getWorkshopsHandler.Handle();
             ViewBag.Workshops = new SelectList(workshops, "WorkshopId", "Title");
 
@@ -52,6 +54,7 @@ namespace WorkshopHub.Web.Controllers
             {
                 return NotFound();
             }
+
             return View(new SessionCommand
             {
                 SessionId = session.SessionId,
@@ -60,34 +63,42 @@ namespace WorkshopHub.Web.Controllers
             });
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Upsert(SessionCommand command)
+        public async Task<IActionResult> Upsert(SessionCommand command, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                var response = await _upsertSessionHandler.Handle(command);
+                await _upsertSessionHandler.Handle(command);
+                if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    return Redirect(returnUrl);
+
                 return RedirectToAction(nameof(Index));
             }
+
             var workshops = await _getWorkshopsHandler.Handle();
             ViewBag.Workshops = new SelectList(workshops, "WorkshopId", "Title");
+            ViewBag.ReturnUrl = returnUrl;
 
-            return View(command); 
+            return View(command);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, string returnUrl)
         {
             var command = new DeleteSessionCommand { SessionId = id };
             var result = await _deleteSessionHandler.Handle(command);
+
             if (result)
             {
+                if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    return Redirect(returnUrl);
+
                 return RedirectToAction(nameof(Index));
             }
+
             return NotFound();
         }
-
     }
 }
