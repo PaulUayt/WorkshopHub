@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WorkshopHub.Contract.Responses;
 using WorkshopHub.Data.Context;
+using WorkshopHub.Data.Entities;
 
 namespace WorkshopHub.Service.Queries
 {
@@ -15,22 +16,28 @@ namespace WorkshopHub.Service.Queries
 
         public async Task<WorkshopResponse> Handle(int workshopId, CancellationToken cancellationToken = default)
         {
-            return await _context.Workshops
-                .AsNoTracking()
-                .Where(w => w.WorkshopId == workshopId)
-                .Select(w => new WorkshopResponse
-                {
-                    WorkshopId = w.WorkshopId,
-                    Title = w.Title,
-                    Description = w.Description,
-                    Duration = w.Duration,
-                    CategoryName = w.Category.Name,
-                    TrainerName = w.Trainer.Name,
-                    SessionCount = w.Sessions.Count
-                })
-                .SingleOrDefaultAsync(cancellationToken);
+            var workshop = await GetWorkshopAsync(workshopId, cancellationToken);
+
+            if (workshop == null)
+                return null;
+
+            return new WorkshopResponse
+            {
+                WorkshopId = workshop.WorkshopId,
+                Title = workshop.Title,
+                Description = workshop.Description,
+                Duration = workshop.Duration,
+                CategoryName = workshop.Category.Name,
+                TrainerName = workshop.Trainer.Name,
+                SessionCount = workshop.Sessions.Count
+            };
         }
 
-
+        private async Task<Workshop> GetWorkshopAsync(int workshopId, CancellationToken cancellationToken = default) =>
+            await _context.Workshops
+            .Include(w => w.Trainer)
+            .Include(w => w.Category)
+            .Include(w => w.Sessions)
+            .SingleOrDefaultAsync(w => w.WorkshopId == workshopId, cancellationToken);
     }
 }

@@ -21,7 +21,7 @@ namespace WorkshopHub.Service.Commands.DeleteHandlers
 
         public async Task<bool> Handle(DeleteCategoryCommand command, CancellationToken cancellationToken = default)
         {
-            var category = GetCategoryAsync(command.CategoryId, cancellationToken);
+            var category = await GetCategoryAsync(command.CategoryId, cancellationToken);
 
             if (category != null)
             {

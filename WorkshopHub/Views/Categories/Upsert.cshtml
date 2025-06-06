@@ -1,0 +1,20 @@
+﻿@model WorkshopHub.Service.Commands.CategoryCommand
+
+@{
+    ViewData["Title"] = Model.CategoryId == 0 ? "Create Category" : "Edit Category";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Upsert" method="post">
+    <input type="hidden" asp-for="CategoryId" />
+
+    <div class="form-group mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

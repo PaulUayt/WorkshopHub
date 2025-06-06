@@ -22,7 +22,7 @@ namespace WorkshopHub.Contract.Requests
         public string Description { get; set; }
 
         [Required]
-        [DataType(DataType.DateTime)]
-        public DateTime Duration { get; set; }
+        [DataType(DataType.Time)]
+        public TimeSpan Duration { get; set; }
     }
 }

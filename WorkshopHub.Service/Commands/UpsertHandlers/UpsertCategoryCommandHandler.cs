@@ -29,7 +29,7 @@ namespace WorkshopHub.Service.Commands.UpsertHandlers
             {
                 CategoryId = category.CategoryId,
                 Name = category.Name,
-                WorkshopCount = category.Workshops.Count
+                WorkshopCount = category.Workshops?.Count ?? 0
             };
         }
 

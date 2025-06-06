@@ -1,0 +1,56 @@
+﻿@model WorkshopHub.Service.Commands.WorkshopCommand
+
+@{
+    ViewData["Title"] = Model.WorkshopId == 0 ? "Create Workshop" : "Edit Workshop";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Upsert" method="post">
+    <input type="hidden" asp-for="WorkshopId" />
+
+    <div class="form-group">
+        <label asp-for="Title" class="control-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Duration" class="control-label"></label>
+        <input asp-for="Duration" class="form-control" type="time" />
+        <span asp-validation-for="Duration" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CategoryId" class="control-label">Category</label>
+        <select asp-for="CategoryId" class="form-control"
+                asp-items="ViewBag.CategoryId">
+            <option value="">-- Select Category --</option>
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TrainerId" class="control-label">Trainer</label>
+        <select asp-for="TrainerId" class="form-control"
+                asp-items="ViewBag.TrainerId">
+            <option value="">-- Select Trainer --</option>
+        </select>
+        <span asp-validation-for="TrainerId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

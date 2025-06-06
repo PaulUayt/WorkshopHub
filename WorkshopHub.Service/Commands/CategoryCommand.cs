@@ -10,7 +10,8 @@ namespace WorkshopHub.Service.Commands
         public Category UpsertCategory() => new Category
         {
             CategoryId = CategoryId,
-            Name = Name
+            Name = Name,
+            Workshops = new List<Workshop>()
         };
     }
 }

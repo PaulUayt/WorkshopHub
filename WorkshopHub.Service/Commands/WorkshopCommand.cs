@@ -9,7 +9,7 @@ namespace WorkshopHub.Service.Commands
         public int TrainerId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public DateTime Duration { get; set; }
+        public TimeSpan Duration { get; set; }
 
         public Workshop UpsertWorkshop() => new Workshop
         {
