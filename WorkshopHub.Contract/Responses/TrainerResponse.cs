@@ -10,7 +10,7 @@
 
         public string PhoneNumber { get; set; }
 
-        public string? Bio { get; set; }
+        public string Bio { get; set; }
 
         public int WorkshopCount { get; set; }
     }

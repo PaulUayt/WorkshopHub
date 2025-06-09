@@ -4,7 +4,7 @@ namespace WorkshopHub.Contract.Requests
 {
     public class UpsertTrainerRequest
     {
-        public int? TrainerId { get; set; } // null → створення, є значення → оновлення
+        public int TrainerId { get; set; } // null → створення, є значення → оновлення
 
         public string Name { get; set; }
 
@@ -12,7 +12,7 @@ namespace WorkshopHub.Contract.Requests
 
         public string PhoneNumber { get; set; }
 
-        public string? Bio { get; set; }
+        public string Bio { get; set; }
     }
 }
 

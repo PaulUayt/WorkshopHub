@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35818.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkshopHub.Web", "WorkshopHub\WorkshopHub.Web.csproj", "{0BC94A00-AAC4-4D30-8E2B-FE3534D9A973}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkshopHub.Web", "WorkshopHub.Web\WorkshopHub.Web.csproj", "{0BC94A00-AAC4-4D30-8E2B-FE3534D9A973}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkshopHub.Data", "WorkshopHub.Data\WorkshopHub.Data.csproj", "{D8CC3A3A-D375-407E-8B4F-76042648DB87}"
 EndProject
