@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkshopHub.Contract", "Wor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkshopHub.Service", "WorkshopHub.Service\WorkshopHub.Service.csproj", "{86338978-8830-4F72-986E-9EEACB642EAA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkshopHub.API", "WorkshopHub.API\WorkshopHub.API.csproj", "{1A0DBFB5-CB59-4ACE-A9E7-3E8A2AF40F52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{86338978-8830-4F72-986E-9EEACB642EAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86338978-8830-4F72-986E-9EEACB642EAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86338978-8830-4F72-986E-9EEACB642EAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A0DBFB5-CB59-4ACE-A9E7-3E8A2AF40F52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A0DBFB5-CB59-4ACE-A9E7-3E8A2AF40F52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A0DBFB5-CB59-4ACE-A9E7-3E8A2AF40F52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A0DBFB5-CB59-4ACE-A9E7-3E8A2AF40F52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
